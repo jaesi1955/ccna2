@@ -1,0 +1,79 @@
+1. deploy for 189 users for accenture.com using the ip address 192.168.128.0/18
+
+C:8B
+S:32 - 8 = /24
+: ( 3RD,1i)
+192.168.128.0/24
+
+i 192.168.129.0/24
+
+network 192.168.129.0 /24
+first 192.168.129.1
+lvalid: 192.168.129.254
+last br: 192.168.129.255
+not 192.168.130.0
+
+
+
+
+CONFIGURE C1 AS DHCP SERVER
+- RESERVE THE FIRST 20 IPS
+ASSIGN VLAN 40
+MAKE SURE P1 IS DHCP CLIENT
+
+
+
+c1
+config t
+int vlan 40
+no shut
+ip add 192.168.129.1 255.255.255.0
+ip dhcp excluded-address 192.168.129.1 192.168.129.20
+ip dhcp pool accenture
+network 192.168.129.0 255.255.255.0
+default-router 192.168.129.1
+domain-name accenture
+dns-server 10.12.1.10
+end
+
+
+
+
+2. 2800 users concentrix.com using ip address 172.16.32.0/19
+reserve first 100
+vlan50
+make sure p2 is a dhcp client
+
+c: 2800 12bits
+s: 32-12 = /20
+ (3rd, 16i)
+
+I 172.16.48.0/20
+network: 172.16.48.0/20
+firs: 172.16.48.1
+last: 172.16.63.254
+br: 172.16.63.255
+
+not: 172.16.64.0
+
+
+config t
+int vlan 50
+vlan 50
+name concentrix
+no shut
+ip add 172.16.48.1 255.255.240.0
+ip dhcp excluded-address 172.16.48.1 172.16.48.100
+ip dhcp pool concentrix
+network 172.16.48.0 255.255.240.0
+default-router 172.16.48.1
+domain-name concentrix
+dns-server 10.12.1.10
+end
+
+
+
+
+
+
+
