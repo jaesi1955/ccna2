@@ -1,0 +1,24 @@
+conf t
+ ip nat inside source static 10.1.1.2 208.8.8.10 
+ ip nat inside source static 10.1.1.6 208.8.8.20
+ ip nat inside source static 10.1.1.10 208.8.8.30
+ end
+show ip nat translations
+
+
+
+
+P1 = 207.7.7.201
+P2 = 207.7.7.202
+S1 = 209.9.9.201
+S2 = 209.9.9.202
+
+conf t
+ip nat inside source static 10.2.1.101 207.7.7.201
+ip nat inside source static 10.2.1.102 207.7.7.202
+ip nat inside source static 192.168.1.133 209.9.9.201
+ip nat inside source static 10.2.2.133 209.9.9.202
+end
+show ip nat translations
+
+
